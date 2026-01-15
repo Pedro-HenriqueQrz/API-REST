@@ -11,10 +11,13 @@
   "type": "commonjs",
   "main": "index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npx ts-node-dev --respawn ./src/index.ts"
   },
   "dependencies": {
-    "express": "^5.2.1"
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "http-status-code": "^2.1.0"
   },
   "devDependencies": {
     "@eslint/css": "^0.14.1",
