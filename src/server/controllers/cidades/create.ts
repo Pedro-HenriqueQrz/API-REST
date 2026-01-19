@@ -1,36 +1,64 @@
-import { Request, Response } from 'express';
+import { Request, RequestHandler, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import * as yup from 'yup';
 import '../../shared/services/translationsYup';
 
-export interface ICidade {
-  nome: string;
-  estado: string;
+interface ICidade {
+    nome: string;
+    estado: string;
 }
+
 const bodyValidation: yup.Schema<ICidade> = yup.object().shape({
-  nome: yup.string().required().min(3),
-  estado: yup.string().required().min(3),
+    nome: yup.string().required().min(3),
+    estado: yup.string().required().min(3),
 });
 
+
+export const createBodyValidation: RequestHandler = async (req, res, next) => {
+    try {
+        await bodyValidation.validate(req.body, { abortEarly: false });
+        return next();
+    } catch (err) {
+        const yupError = err as yup.ValidationError;
+        const errors: Record<string, string> = {};
+
+        yupError.inner.forEach(error => {
+            if (error.path === undefined) return;
+            errors[error.path] = error.message;
+        });
+
+        return res.status(StatusCodes.BAD_REQUEST).json({ errors });
+
+    }
+}
+
+interface IFilter{
+    filter: string;
+}
+
+const queryValidation: yup.Schema<IFilter> = yup.object().shape({
+    filter: yup.string().required().min(3),
+});
+
+export const createQueryValidation: RequestHandler = async (req, res, next) => {
+    try {
+        await queryValidation.validate(req.query, { abortEarly: false });
+        return next();
+    } catch (err) {
+        const yupError = err as yup.ValidationError;
+        const errors: Record<string, string> = {};
+
+        yupError.inner.forEach(error => {
+            if (error.path === undefined) return;
+            errors[error.path] = error.message;
+        });
+
+        return res.status(StatusCodes.BAD_REQUEST).json({ errors });
+
+    }
+}
+
 export const create = async (req: Request<{}, {}, ICidade>, res: Response) => {
-  let validatedData: ICidade | undefined = undefined;
 
-  try {
-    validatedData = await bodyValidation.validate(req.body, { abortEarly: false });
-  } catch (err) {
-    const yupError = err as yup.ValidationError;
-    const errors: Record<string, string> = {};
-
-    yupError.inner.forEach(error => {
-      if (error.path === undefined) return;
-      errors[error.path] = error.message;
-    });
-
-    return res.status(StatusCodes.BAD_REQUEST).json({ errors });
-    
-  }
-
-  console.log(validatedData);
-
-  return res.send('Create!');
+    return res.send('Create!');
 };

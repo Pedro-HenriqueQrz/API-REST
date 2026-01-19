@@ -10,6 +10,6 @@ router.get('/', (req, res) => {
 
 
 
-router.post('/cidades', CidadesController.create)
+router.post('/cidades', CidadesController.createBodyValidation, CidadesController.createQueryValidation ,CidadesController.create)
 
 export { router };
