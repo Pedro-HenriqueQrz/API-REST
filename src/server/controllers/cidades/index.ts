@@ -1,5 +1,5 @@
 import * as create from './create';
-import { ICidade } from './create';
+export type { ICidade } from './create';
 
 export const CidadesController = {
   ...create,
