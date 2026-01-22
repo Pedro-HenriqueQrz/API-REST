@@ -20,5 +20,5 @@ export const getAllValidation = validation((getSchema) => ({
 
 export const getAll = async (req: Request<{}, {}, {}, IQUeryPops>, res: Response) => {
     console.log(req.query)
-    return res.send('Create!');
+    return res.status(StatusCodes.BAD_REQUEST).send('Get all ainda não implementado');
 };
