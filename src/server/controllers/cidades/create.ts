@@ -4,7 +4,7 @@ import * as yup from 'yup';
 
 import { validation } from '../../shared/middleware';
 
-interface ICidade {
+export interface ICidade {
   nome: string;
 }
 

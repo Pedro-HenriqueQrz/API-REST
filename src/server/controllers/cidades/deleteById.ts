@@ -4,7 +4,7 @@ import * as yup from 'yup';
 
 import { validation } from '../../shared/middleware';
 
-interface IParamProps {
+export interface IParamProps {
   id?: number;
 }
 
