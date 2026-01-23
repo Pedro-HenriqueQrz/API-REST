@@ -1,11 +1,11 @@
-import { Request, RequestHandler, Response } from 'express';
+import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import * as yup from 'yup';
-import '../../shared/services/translationsYup';
+
 import { validation } from '../../shared/middleware';
 
-export interface ICidade {
-    nome: string;
+interface ICidade {
+  nome: string;
 }
 
 export const createValidation = validation((getSchema) => ({
@@ -15,5 +15,6 @@ export const createValidation = validation((getSchema) => ({
 }));
 
 export const create = async (req: Request<{}, {}, ICidade>, res: Response) => {
-    return res.status(StatusCodes.CREATED).send('Create!');
+
+  return res.status(StatusCodes.CREATED).json(1);
 };

@@ -19,6 +19,13 @@ export const getAllValidation = validation((getSchema) => ({
 }));
 
 export const getAll = async (req: Request<{}, {}, {}, IQUeryPops>, res: Response) => {
-    console.log(req.query)
-    return res.status(StatusCodes.BAD_REQUEST).send('Get all ainda não implementado');
+    res.setHeader('access-control-expose-headers', 'x-total-count');
+    res.setHeader('x-total-count', 1);
+
+  return res.status(StatusCodes.OK).json([
+    {
+      id: 1,
+      nome: 'Cidade de Deus',
+    }
+  ]);
 };
