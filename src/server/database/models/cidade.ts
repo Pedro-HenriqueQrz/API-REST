@@ -1,4 +1,4 @@
 export interface ICidade {
-    id: Number;
+    id: number;
     nome: string;
 }
